@@ -3,14 +3,18 @@ package com.library.model;
 public class Book {
     private String title;
     private String author;
-    private int id;
-    private boolean available;
+    private int bookId;
+    private boolean isBorrowed;
+
+    public int getBookId() { return bookId; }
+
+
     // constructor
-    public Book(int id, String author, String title){
-            this.id =id;
+    public Book(int bookId, String author, String title){
+            this.bookId = bookId;
             this.title =title;
             this.author = author;
-            this.available = true;
+            this.isBorrowed = true;
     }
 
     public void setTitle(String title){
@@ -27,31 +31,28 @@ public class Book {
         this.author = author;
     }
 
-    public void setAvailable(boolean available){
-        this.available = available;
+    public boolean isBorrowed() {
+        return isBorrowed;
     }
-
-    public boolean isAvailable() {
-        return available;
-    }
-    public boolean borrow(int inputId){
-        if(this.id == inputId && available) {
-            available = false;
+    public boolean borrow(int inputId ){
+        if(this.bookId == inputId && !isBorrowed) {
+            isBorrowed = true;
             return true;
-        }return false;
+        }
+        return false;
     }
     public boolean returnBook(int inputId){
-        if(this.id == inputId && !available){
-            available = true;
+        if(this.bookId == inputId && isBorrowed){
+            isBorrowed = false;
             return true;
         }return false;
     }
     public String toString(){
         return "Book{" +
-                "id = " + id +
+                "id = " + bookId +
                 ", Title = " + title + '\'' +
                 ", Author = " + author + '\'' +
-                ", Available = " + available +
+                ", Available = " + (!isBorrowed) +
                 "}";
         }
 }
